@@ -1,0 +1,1 @@
+This is a repository for an university project - Android RSS Reader app. 
