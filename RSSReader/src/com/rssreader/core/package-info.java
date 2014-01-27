@@ -4,4 +4,4 @@
  * @author Viktor Bukurov
  * @version 1.0
  */
-package rssreader.core;
+package com.rssreader.core;

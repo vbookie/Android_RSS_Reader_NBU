@@ -1,4 +1,4 @@
-package rssreader.core;
+package com.rssreader.core;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,7 +15,7 @@ public class Feed {
 	private String description;
 	private String fileName;
 	private Date lastUpdatedDate;
-	private ArrayList<FeedItem> feedItems;
+	private ArrayList<FeedItem> feedItems; 
 
 	/* CONSTRUCTORS */
 	/**
@@ -79,5 +79,9 @@ public class Feed {
 	 */
 	public void addFeedItem(FeedItem item) {
 		this.feedItems.add(item);
+	}
+	
+	public ArrayList<FeedItem> getFeedItems() {
+		return this.feedItems;
 	}
 }

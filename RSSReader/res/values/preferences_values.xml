@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_refresh_rate_intervals_values">
+        <item >0</item>
+        <item >15</item>
+        <item >30</item>
+        <item >60</item>
+    </string-array>
+    <string-array name="pref_refresh_rate_intevals_titles">
+        <item >No autorefresh</item>
+        <item >Every 15 minutes</item>
+        <item >Every 30 minutes</item>
+        <item >Every 1 hour</item>
+    </string-array>
+    
+    <string name="pref_refresh_rate_interval_default">15</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.rssreader.FeedsPreference
+        android:title="@string/pref_feeds_title"
+        android:key="@string/pref_feeds_key" >
+        <intent android:action="android.intent.action.VIEW"
+            android:targetPackage="com.rssreader"
+            android:targetClass="com.rssreader.SettingsFeedListActivity" />
+    </com.rssreader.FeedsPreference>
+    
+    <ListPreference
+        android:entries="@array/pref_refresh_rate_intevals_titles"
+        android:entryValues="@array/pref_refresh_rate_intervals_values"
+        android:title="@string/pref_refresh_rate_title"
+        android:key="@string/pref_refresh_rate_key"
+        android:defaultValue="@string/pref_refresh_rate_interval_default"/>
+</PreferenceScreen>

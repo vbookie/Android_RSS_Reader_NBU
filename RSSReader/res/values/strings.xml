@@ -1,5 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="app_name">RSSReader</string>
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_feeditem_list">FeedItems</string>
+    <string name="title_feeditem_detail">FeedItem Detail</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="button_ok">OK</string><string name="button_save">Save</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="pref_refresh_rate_title">Refresh Rate</string>
+    <string name="pref_refresh_rate_key">refreshRate</string>
+    <string name="pref_feeds_title">Feeds</string>
+    <string name="pref_feeds_key">feeds_urls</string>
+    <string name="title_activity_settings_feed_list">Feeds</string>
+    <string name="action_new_feed_url">New Feed</string>
+    <string name="title_activity_settings_new_feed">New feed</string>
+    <string name="title_activity_settings_edit_feed">Edit Feed</string>
+    <string name="settings_single_feed_description_add">Add full Url of the feed and click Save.</string>
+    <string name="settings_single_feed_description_edit">Edit the Url of the feed and click Save.</string><string name="settings_single_feed_default_url">http://</string>
+    <string name="settings_single_feed_url_title">Url:</string>
+    <string name="settings_feed_edit_action">Edit</string>
+    <string name="settings_feed_delete_action">Delete</string>
+    
+    <string name="settings_feed_alert_empty">The url cannot be empty</string>
+    <string name="settings_feed_alert_invalid">Please insert a valid URL.</string>
+    <string name="settings_feed_alert_duplicate">The specified URL already exists.</string>
+    <string name="settings_no_feeds">Currently there are no feeds. You can add new feeds from the menu.</string>
+    <string name="settings_single_feed_empty_url">http://example.com/feed</string>
+    
+    
 
 </resources>

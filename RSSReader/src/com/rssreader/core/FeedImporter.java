@@ -1,4 +1,4 @@
-package rssreader.core;
+package com.rssreader.core;
 
 
 import java.io.BufferedInputStream;
