@@ -38,6 +38,7 @@ class FeedImporter {
 		InputStream in = new BufferedInputStream(connection.getInputStream());
 		
 		if (responseCode == HttpURLConnection.HTTP_OK && contentType != null) {
+			// TODO: check if the response file is xml, otherwise throw an exception
 			OutputStream outputStream = this.context.openFileOutput(file.getName(), Context.MODE_PRIVATE);
 			try {
 				byte[] buffer = new byte[8192];

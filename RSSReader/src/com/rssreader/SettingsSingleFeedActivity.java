@@ -83,7 +83,7 @@ public class SettingsSingleFeedActivity extends Activity {
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 		String feedsKey = getString(R.string.pref_feeds_key);
 		Set<String> set = pref.getStringSet(feedsKey, null);
-		if (set.contains(url)) {
+		if (set != null && set.contains(url)) {
 			if (!(this.isInEditMode && url.equals(originalUrl))) {
 				String message = getString(R.string.settings_feed_alert_duplicate);
 				showAlert(message);

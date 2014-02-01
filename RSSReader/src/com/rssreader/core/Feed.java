@@ -13,9 +13,8 @@ public class Feed {
 	private String title;
 	private String link;
 	private String description;
-	private String fileName;
 	private Date lastUpdatedDate;
-	private ArrayList<FeedItem> feedItems; 
+	private ArrayList<FeedItem> feedItems; // TODO: change it to linked list
 
 	/* CONSTRUCTORS */
 	/**
@@ -28,7 +27,6 @@ public class Feed {
 		this.title = null;
 		this.link = null;
 		this.description = null;
-		this.fileName = null;
 		this.setLastUpdatedDate(new Date());
 		this.feedItems = new ArrayList<FeedItem>();
 	}

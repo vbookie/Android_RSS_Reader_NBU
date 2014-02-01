@@ -1,10 +1,23 @@
 package com.rssreader;
 
+import java.lang.ref.ReferenceQueue;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.rssreader.core.FeedsService;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ProgressBar;
 
 /**
  * An activity representing a list of FeedItems. This activity has different
@@ -31,6 +44,8 @@ public class FeedItemListActivity extends BaseActivity implements
 	 */
 	private boolean mTwoPane;
 
+	private ProgressBar progressBar;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,6 +69,8 @@ public class FeedItemListActivity extends BaseActivity implements
 		
 		// Sets the default values for the preferences for first time
 		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+		
+		this.progressBar = (ProgressBar) findViewById(R.id.progressBar);
 	}
 
 	@Override
@@ -92,5 +109,44 @@ public class FeedItemListActivity extends BaseActivity implements
 	
 	public void refreshActionClicked(MenuItem menuItem) {
 		// TODO: implement refresh
+		// тоя рефреш трябва винаги да се вика
+		RefreshDataTask task = new RefreshDataTask();
+		task.execute();
 	}
+	
+	// TODO: implement the async for the refresh 
+	private class RefreshDataTask extends AsyncTask<Void, Void, Void> {
+
+		@Override
+		protected void onPreExecute() {
+			Log.d("ListActivity", "RefreshDataTask.onPreExecute");
+			progressBar.setVisibility(ProgressBar.VISIBLE);
+		}
+		
+		@Override
+		protected Void doInBackground(Void... params) {
+			Log.d("ListActivity", "RefreshDataTask.doInBackground");
+			if (!FeedsService.isInProgress()) {
+				Log.d("ListActivity", "Calling start service.");
+				startService(new Intent(getApplicationContext(), FeedsService.class));
+			}
+			do {
+				try {
+					Thread.sleep(1000);
+					Log.d("ListActivity", "Slept for 1 sec.");
+				} catch (InterruptedException e) {
+					return null;
+				}
+			} while (FeedsService.isInProgress() && !this.isCancelled());
+			
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(Void result) {
+			Log.d("ListActivity", "RefreshDataTask.onPostExecute");
+			progressBar.setVisibility(ProgressBar.GONE);
+		}
+	}
+//	задължително трябва да може да се cancel-ва
 }

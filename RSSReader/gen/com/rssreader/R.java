@@ -37,23 +37,27 @@ public final class R {
         public static final int icon=0x7f020009;
     }
     public static final class id {
-        public static final int LinearLayout01=0x7f0a0008;
-        public static final int action_new_feed_url=0x7f0a0010;
-        public static final int action_refresh=0x7f0a000d;
-        public static final int action_settings=0x7f0a000c;
-        public static final int activity_settings_feed_list=0x7f0a0002;
-        public static final int activity_settings_feed_list_row=0x7f0a0003;
-        public static final int feeditem_detail=0x7f0a000b;
+        public static final int LinearLayout01=0x7f0a0009;
+        public static final int action_new_feed_url=0x7f0a0014;
+        public static final int action_refresh=0x7f0a0011;
+        public static final int action_settings=0x7f0a0010;
+        public static final int activity_settings_feed_list=0x7f0a0003;
+        public static final int activity_settings_feed_list_row=0x7f0a0004;
+        public static final int feeditem_detail=0x7f0a000c;
         public static final int feeditem_detail_container=0x7f0a0000;
         public static final int feeditem_list=0x7f0a0001;
-        public static final int layout_root=0x7f0a0004;
-        public static final int settings_feed_delete_action=0x7f0a000f;
-        public static final int settings_feed_edit_action=0x7f0a000e;
-        public static final int settings_single_feed_cancel_button=0x7f0a0009;
-        public static final int settings_single_feed_description=0x7f0a0005;
-        public static final int settings_single_feed_save_button=0x7f0a000a;
-        public static final int settings_single_feed_url=0x7f0a0007;
-        public static final int settings_single_feed_url_title=0x7f0a0006;
+        public static final int itemlist_row_date=0x7f0a000f;
+        public static final int itemlist_row_headline=0x7f0a000d;
+        public static final int itemlist_row_summary=0x7f0a000e;
+        public static final int layout_root=0x7f0a0005;
+        public static final int progressBar=0x7f0a0002;
+        public static final int settings_feed_delete_action=0x7f0a0013;
+        public static final int settings_feed_edit_action=0x7f0a0012;
+        public static final int settings_single_feed_cancel_button=0x7f0a000a;
+        public static final int settings_single_feed_description=0x7f0a0006;
+        public static final int settings_single_feed_save_button=0x7f0a000b;
+        public static final int settings_single_feed_url=0x7f0a0008;
+        public static final int settings_single_feed_url_title=0x7f0a0007;
     }
     public static final class layout {
         public static final int activity_feeditem_detail=0x7f030000;
@@ -78,6 +82,7 @@ public final class R {
         public static final int activity_settings_feed_list_row=0x7f030004;
         public static final int activity_settings_single_feed=0x7f030005;
         public static final int fragment_feeditem_detail=0x7f030006;
+        public static final int fragment_feeditem_list_row=0x7f030007;
     }
     public static final class menu {
         public static final int base=0x7f090000;

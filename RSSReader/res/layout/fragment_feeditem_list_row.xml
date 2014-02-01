@@ -1,0 +1,19 @@
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+	android:paddingLeft="0.7mm" >
+	<TextView android:text="HEADLINE"
+	    android:id="@+id/itemlist_row_headline"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content" />
+	<TextView android:text="SUMMARY"
+	    android:id="@+id/itemlist_row_summary"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content" />
+	<TextView android:text="DATE"
+	    android:id="@+id/itemlist_row_date"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content" />
+</LinearLayout>

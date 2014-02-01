@@ -13,6 +13,7 @@ public class FeedItem {
 	private String link;
 	private String guid;
 	private String content;
+	private String summary;
 	private Date publicationDate;
 	
 	/* CONSTRUCTORS */
@@ -81,5 +82,13 @@ public class FeedItem {
 
 	public void setPublicationDate(Date publicationDate) {
 		this.publicationDate = publicationDate;
+	}
+
+	public String getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
 	}
 }

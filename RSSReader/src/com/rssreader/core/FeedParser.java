@@ -84,6 +84,7 @@ class FeedParser {
 						String description = parser.nextText();
 						if (isItem) {
 							currentFeedItem.setDescription(description);
+							currentFeedItem.setSummary(description); // TODO: remove it and put real summary
 						} else if (parser.getDepth() == RSS_MAIN_PROPERTIES_DEPTH) {
 							feed.setDescription(description);
 						}

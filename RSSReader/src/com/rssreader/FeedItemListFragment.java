@@ -72,7 +72,7 @@ public class FeedItemListFragment extends ListFragment {
 
 		// TODO: replace with a real list adapter.
 		setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-				android.R.layout.simple_list_item_activated_1,
+				android.R.layout.simple_list_item_activated_1, // Така се сетва layout-a на реда
 				android.R.id.text1, DummyContent.ITEMS));
 	}
 

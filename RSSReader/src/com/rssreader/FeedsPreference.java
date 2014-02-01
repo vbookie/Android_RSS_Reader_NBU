@@ -28,4 +28,5 @@ public class FeedsPreference extends Preference {
 		Intent intent = new Intent(context, SettingsActivity.class);
 		context.startActivity(intent);
 	}
+	
 }
