@@ -14,4 +14,11 @@
         android:title="@string/pref_refresh_rate_title"
         android:key="@string/pref_refresh_rate_key"
         android:defaultValue="@string/pref_refresh_rate_interval_default"/>
+    
+    <ListPreference
+        android:entries="@array/pref_summary_perc_intervals_titles"
+        android:entryValues="@array/pref_summary_perc_intervals_values"
+        android:title="@string/pref_summary_perc_title"
+        android:key="@string/pref_summary_perc_key"
+        android:defaultValue="@string/pref_summary_perc_interval_default"/>
 </PreferenceScreen>

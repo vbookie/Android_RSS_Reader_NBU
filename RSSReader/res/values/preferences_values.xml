@@ -14,4 +14,23 @@
     </string-array>
     
     <string name="pref_refresh_rate_interval_default">15</string>
+    
+    <string-array name="pref_summary_perc_intervals_values">
+       <item >0</item>
+        <item >20</item>
+        <item >40</item>
+        <item >60</item>
+        <item >80</item>
+        <item >100</item>
+    </string-array>
+     <string-array name="pref_summary_perc_intervals_titles">
+        <item >0%</item>
+        <item >20%</item>
+        <item >40%</item>
+        <item >60%</item>
+        <item >80%</item>
+        <item >100%</item>
+          
+    </string-array>
+    <string name="pref_summary_perc_interval_default">40</string>
 </resources>
