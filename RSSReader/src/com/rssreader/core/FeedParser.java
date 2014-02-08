@@ -60,7 +60,6 @@ class FeedParser {
 			switch(eventType) {
 			case XmlPullParser.START_TAG:
 				tagName = parser.getName();
-				System.out.println("Rss Start Tag: " + tagName); // TODO: remove these
 				RssTag rssTag = RssTag.getValueOf(tagName);
 				if (rssTag != null) {
 					switch (rssTag) {
@@ -119,7 +118,6 @@ class FeedParser {
 				break;
 			case XmlPullParser.END_TAG:
 				tagName = parser.getName();
-				System.out.println("Rss End Tag: " + tagName);
 				RssTag endRssTag = RssTag.getValueOf(tagName);
 				if (endRssTag != null) {
 					switch (endRssTag) {

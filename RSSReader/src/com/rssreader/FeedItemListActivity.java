@@ -110,11 +110,11 @@ public class FeedItemListActivity extends BaseActivity implements
 	public void refreshActionClicked(MenuItem menuItem) {
 		// TODO: implement refresh
 		// тоя рефреш трябва винаги да се вика
+		// TODO: prevent the user to being able to start a new refresh while current one is still running
 		RefreshDataTask task = new RefreshDataTask();
 		task.execute();
 	}
 	
-	// TODO: implement the async for the refresh 
 	private class RefreshDataTask extends AsyncTask<Void, Void, Void> {
 
 		@Override
@@ -148,5 +148,5 @@ public class FeedItemListActivity extends BaseActivity implements
 			progressBar.setVisibility(ProgressBar.GONE);
 		}
 	}
-//	задължително трябва да може да се cancel-ва
+//TODO:	задължително трябва да може да се cancel-ва
 }

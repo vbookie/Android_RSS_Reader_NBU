@@ -21,6 +21,8 @@ class ArticleParser {
         String[] allWords = text.split("( |\r)");
         for (String word : allWords)
         {
+        	if (word.isEmpty())
+        		continue;
         	article.wordCount++;
             if (word.startsWith("\n") && word.length() > 2)
             	word = word.replace("\n", "");

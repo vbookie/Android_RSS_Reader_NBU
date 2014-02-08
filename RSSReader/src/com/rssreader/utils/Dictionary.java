@@ -12,6 +12,8 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 class Dictionary {
+	private static Dictionary backupDictionary = null;
+	
 	LinkedList<Word> redundantWords;
     LinkedList<String> sentanceBreakers;
     LinkedList<String> nonSentanceBreakers;
@@ -32,7 +34,10 @@ class Dictionary {
 
     static Dictionary LoadFromFile() throws XmlPullParserException, IOException
     {
-        String dictionaryFile = "";
+    	if (backupDictionary != null)
+    		return backupDictionary;
+    	
+        String dictionaryFile = "/com/rssreader/utils/dics/en.xml";
         URL dicFileURL = Dictionary.class.getResource(dictionaryFile);
         if (dicFileURL == null) {
         	throw new FileNotFoundException(dictionaryFile + " couldn't be found.");
@@ -97,9 +102,10 @@ class Dictionary {
 						break;	
 				}	
 			}
-			parser.next();
+			eventType = parser.next();
 		}
         
+		backupDictionary = dictionary;
         return dictionary;
     }
     
