@@ -76,7 +76,7 @@ public class FeedsService extends Service {
 		Log.d("FeedsService", "Service DESTROYED");
 	}
 	
-	private boolean hasInternetConnection() {
+	public boolean hasInternetConnection() {
 		ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo network = cm.getActiveNetworkInfo();
 		if (network != null && network.isConnected()) {		
@@ -128,7 +128,7 @@ public class FeedsService extends Service {
 					File file = feedImporter.importFeed();
 					Log.d("FeedsService", "Feed imported: " + url);
 					Log.d("FeedsService", "Now parsing feed: " + url);
-					Feed feed = FeedParser.parseFeed(file, context);
+					Feed feed = FeedParser.parseFeed(file, context, 20); // TODO: get percent from pref
 					Log.d("FeedsService", "Feed parsed: " + url);
 					if (feed != null) {
 						this.updateDatabase(feed, url);

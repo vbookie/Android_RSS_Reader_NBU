@@ -10,14 +10,18 @@ import java.util.Locale;
 
 import org.xmlpull.v1.*;
 
+import com.rssreader.utils.Summarizer;
+
 import android.content.Context;
 
 class FeedParser {
 	private static final int RSS_MAIN_PROPERTIES_DEPTH = 3;
 	private static final int ATOM_MAIN_PROPERTIES_DEPTH = 2;
 
-	public static Feed parseFeed(File file, Context context)
+	public static Feed parseFeed(File file, Context context, int summarizationPercent)
 			throws XmlPullParserException, IOException, ParseException{
+		Summarizer summarizer = new Summarizer(summarizationPercent);
+		
 		XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
         factory.setNamespaceAware(false);
         XmlPullParser parser = factory.newPullParser();
@@ -34,17 +38,17 @@ class FeedParser {
         if (eventType == XmlPullParser.START_TAG) {
         	String tagName = parser.getName();
 			if (tagName.equalsIgnoreCase("rss")) {
-				feed = parseRssFeed(parser);
+				feed = parseRssFeed(parser, summarizer);
 			}
 			else if (tagName.equalsIgnoreCase("feed")) {
-				feed = parseAtomFeed(parser);
+				feed = parseAtomFeed(parser, summarizer);
 			}
         }
         
         return feed;
 	}
 
-	private static Feed parseRssFeed(XmlPullParser parser) throws XmlPullParserException, IOException, ParseException {
+	private static Feed parseRssFeed(XmlPullParser parser, Summarizer summarizer) throws XmlPullParserException, IOException, ParseException {
 		Feed feed = new Feed(FeedType.RSS);
 		FeedItem currentFeedItem = null;
 
@@ -84,7 +88,6 @@ class FeedParser {
 						String description = parser.nextText();
 						if (isItem) {
 							currentFeedItem.setDescription(description);
-							currentFeedItem.setSummary(description); // TODO: remove it and put real summary
 						} else if (parser.getDepth() == RSS_MAIN_PROPERTIES_DEPTH) {
 							feed.setDescription(description);
 						}
@@ -124,6 +127,7 @@ class FeedParser {
 							done = true;
 							break;
 						case ITEM:
+							currentFeedItem.generateSummary(summarizer);
 							feed.addFeedItem(currentFeedItem);
 							isItem = false;
 							break;
@@ -138,7 +142,7 @@ class FeedParser {
 		return feed;
 	}
 
-	private static Feed parseAtomFeed(XmlPullParser parser) throws XmlPullParserException, IOException, ParseException {
+	private static Feed parseAtomFeed(XmlPullParser parser, Summarizer summarizer) throws XmlPullParserException, IOException, ParseException {
 		Feed feed = new Feed(FeedType.Atom);
 		int eventType = parser.getEventType(); 
 		boolean done = false;
@@ -209,6 +213,7 @@ class FeedParser {
 							done = true;
 							break;
 						case ENTRY:
+							currentFeedItem.generateSummary(summarizer);
 							feed.addFeedItem(currentFeedItem);
 							isItem = false;
 							break;

@@ -2,6 +2,8 @@ package com.rssreader.core;
 
 import java.util.Date;
 
+import com.rssreader.utils.Summarizer;
+
 /**
  * @author Viktor Bukurov
  *
@@ -90,5 +92,12 @@ public class FeedItem {
 
 	public void setSummary(String summary) {
 		this.summary = summary;
+	}
+
+	public void generateSummary(Summarizer summarizer) {
+		String text = this.content;
+		if (text == null || text.trim().isEmpty())
+			text = this.description;
+		summarizer.summarize(text);
 	}
 }

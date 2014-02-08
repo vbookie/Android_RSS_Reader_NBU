@@ -9,10 +9,22 @@ public class Summarizer {
 	private static final int MIN_PERCENT = 20;
 	private static final int MAX_PERCENT = 100;
 
+	private int summarizationPercent;
 	private Dictionary dictionary;
 	private ArticleParser parser;
 	
-	public Summarizer() {
+	boolean isSet() {
+		return this.dictionary != null;
+	}
+	
+	public Summarizer(int summarizationPercent) {
+		if(summarizationPercent > MAX_PERCENT)
+			summarizationPercent = MAX_PERCENT;
+        if(summarizationPercent < MIN_PERCENT)
+        	summarizationPercent = MIN_PERCENT;
+		
+		this.summarizationPercent = summarizationPercent;
+		
 		this.dictionary = null;		
 		try {
 			this.dictionary = Dictionary.LoadFromFile();
@@ -24,30 +36,26 @@ public class Summarizer {
 		}
 	}
 	
-	public String summarize(String text, int summarizationPercent) {
-		if (text == null || text.trim().isEmpty())
-			return null;
-		
-		if (this.dictionary == null)
+	public String summarize(String text) {
+		if (text == null)
 			return null;
 		
 		// Remove HTML elements from text.
 		text = text.replaceAll("<[^>]+>", "");
+		if (text.trim().isEmpty())
+			return null;
 		
 		Article article = this.parser.parseText(text);
 		Grader.gradeArticle(article);
-		String summary = Summarizer.getSummaryByPercent(article, summarizationPercent);
+		String summary = getSummaryByPercent(article);
 		return summary;
 	}
 	
-	private static String getSummaryByPercent(Article article, int percent)
+	private String getSummaryByPercent(Article article)
     {
-		if(percent > MAX_PERCENT) percent = MAX_PERCENT;
-        if(percent < MIN_PERCENT) percent = MIN_PERCENT;
-		
 		TreeSet<Sentence> sentencesByScore = new TreeSet<Sentence>(article.sentences);
 
-        int requiredWordCount = (int) (article.wordCount * (percent/100f));
+        int requiredWordCount = (int) (article.wordCount * (summarizationPercent/100f));
         int wordsCount = 0;
         for (Sentence sentence : sentencesByScore)
         {
