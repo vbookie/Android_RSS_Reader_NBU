@@ -4,6 +4,6 @@
         android:id="@+id/action_new_feed_url"
         android:orderInCategory="100"
         android:showAsAction="always"
-        android:title="@string/action_new_feed_url" android:onClick="addNewFeedClicked"/>
+        android:title="@string/action_new_feed_url" android:onClick="addNewFeedClicked" android:icon="@drawable/ic_menu_add"/>
 
 </menu>

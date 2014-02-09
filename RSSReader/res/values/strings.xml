@@ -3,13 +3,13 @@
     <string name="app_name">RSSReader</string>
     <string name="title_activity_base">BaseActivity</string>
     <string name="title_activity_settings">Settings</string>
-    <string name="title_feeditem_list">FeedItems</string>
-    <string name="title_feeditem_detail">FeedItem Detail</string>
+    <string name="title_feeditem_list">Feeds</string>
+    <string name="title_feeditem_detail"></string>
     <string name="action_settings">Settings</string>
     <string name="action_refresh">Refresh</string>
     <string name="button_ok">OK</string><string name="button_save">Save</string>
     <string name="button_cancel">Cancel</string>
-    <string name="pref_refresh_rate_title">Refresh Rate</string>
+    <string name="pref_refresh_rate_title">Automatic Refresh Rate</string>
     <string name="pref_refresh_rate_key">refreshRate</string>
     <string name="pref_feeds_title">Feeds</string>
     <string name="pref_feeds_key">feeds_urls</string>
@@ -17,10 +17,11 @@
     <string name="pref_summary_perc_key">summaryPercentage</string>
     <string name="title_activity_settings_feed_list">Feeds</string>
     <string name="action_new_feed_url">New Feed</string>
-    <string name="title_activity_settings_new_feed">New feed</string>
+    <string name="title_activity_settings_new_feed">New Feed</string>
     <string name="title_activity_settings_edit_feed">Edit Feed</string>
     <string name="settings_single_feed_description_add">Add full Url of the feed and click Save.</string>
-    <string name="settings_single_feed_description_edit">Edit the Url of the feed and click Save.</string><string name="settings_single_feed_default_url">http://</string>
+    <string name="settings_single_feed_description_edit">Edit the Url of the feed and click Save.</string>
+    <string name="settings_single_feed_default_url">http://</string>
     <string name="settings_single_feed_url_title">Url:</string>
     <string name="settings_feed_edit_action">Edit</string>
     <string name="settings_feed_delete_action">Delete</string>   

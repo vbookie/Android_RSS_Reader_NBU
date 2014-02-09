@@ -42,11 +42,13 @@
         <activity
             android:name="com.rssreader.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:launchMode="singleTop" >           
+            android:icon="@drawable/ic_menu_preferences"
+            android:launchMode="singleTop" >
         </activity>
         <activity
             android:name="com.rssreader.SettingsFeedListActivity"
             android:label="@string/title_activity_settings_feed_list"
+            android:icon="@drawable/ic_menu_preferences"
             android:parentActivityName="com.rssreader.SettingsActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -55,6 +57,7 @@
         <activity
             android:name="com.rssreader.SettingsSingleFeedActivity"
             android:label="@string/title_activity_settings_new_feed"
+            android:icon="@drawable/ic_menu_preferences"
             android:parentActivityName="com.rssreader.SettingsFeedListActivity"
             android:noHistory="true" >
             <meta-data
