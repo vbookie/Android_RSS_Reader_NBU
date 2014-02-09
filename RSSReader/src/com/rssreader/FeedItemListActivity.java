@@ -1,22 +1,14 @@
 package com.rssreader;
 
-import java.lang.ref.ReferenceQueue;
-import java.util.HashSet;
-import java.util.Set;
-
 import com.rssreader.core.FeedsService;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ProgressBar;
 
 /**
@@ -43,11 +35,13 @@ public class FeedItemListActivity extends BaseActivity implements
 	 * device.
 	 */
 	private boolean mTwoPane;
-
+	private boolean forceRefreshTask;
 	private ProgressBar progressBar;
+	private RefreshDataTask refreshTask = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Log.d("RefreshTask", "OnCreate of Activity");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_feeditem_list);
 
@@ -65,12 +59,16 @@ public class FeedItemListActivity extends BaseActivity implements
 					.setActivateOnItemClick(true);
 		}
 
-		// TODO: If exposing deep links into your app, handle intents here.
-		
 		// Sets the default values for the preferences for first time
 		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 		
 		this.progressBar = (ProgressBar) findViewById(R.id.progressBar);
+		
+		if (!FeedsService.isInProgress()) {
+			forceRefreshTask = true;
+		} else {
+			forceRefreshTask = false;
+		}
 	}
 
 	@Override
@@ -107,33 +105,54 @@ public class FeedItemListActivity extends BaseActivity implements
 		}
 	}
 	
+	@Override
+	protected void onPause() {
+		Log.d("RefreshTask", "OnPause.");
+		if (refreshTask != null) {
+			Log.d("RefreshTask", "Canceling refresh task.");
+			refreshTask.cancel(true);
+		}
+		super.onPause();
+	}
+	
+	@Override
+	protected void onResume() {
+		Log.d("RefreshTask", "OnResume");
+		if (FeedsService.isInProgress() || forceRefreshTask) {
+			Log.d("RefreshTask", "Resuming refresh task.");
+			refreshTask = new RefreshDataTask();
+			refreshTask.execute();
+			forceRefreshTask = false;
+		}
+		super.onResume();
+	}
+	
 	public void refreshActionClicked(MenuItem menuItem) {
-		// TODO: implement refresh
-		// тоя рефреш трябва винаги да се вика
-		// TODO: prevent the user to being able to start a new refresh while current one is still running
-		RefreshDataTask task = new RefreshDataTask();
-		task.execute();
+		if (refreshTask == null) {
+			refreshTask = new RefreshDataTask();
+			refreshTask.execute();
+		}
 	}
 	
 	private class RefreshDataTask extends AsyncTask<Void, Void, Void> {
 
 		@Override
 		protected void onPreExecute() {
-			Log.d("ListActivity", "RefreshDataTask.onPreExecute");
+			Log.d("RefreshTask", "RefreshDataTask.onPreExecute");
 			progressBar.setVisibility(ProgressBar.VISIBLE);
 		}
 		
 		@Override
 		protected Void doInBackground(Void... params) {
-			Log.d("ListActivity", "RefreshDataTask.doInBackground");
+			Log.d("RefreshTask", "RefreshDataTask.doInBackground");
 			if (!FeedsService.isInProgress()) {
-				Log.d("ListActivity", "Calling start service.");
+				Log.d("RefreshTask", "Calling start service.");
 				startService(new Intent(getApplicationContext(), FeedsService.class));
 			}
 			do {
 				try {
 					Thread.sleep(1000);
-					Log.d("ListActivity", "Slept for 1 sec.");
+					Log.d("RefreshTask", "Slept for 1 sec.");
 				} catch (InterruptedException e) {
 					return null;
 				}
@@ -144,9 +163,9 @@ public class FeedItemListActivity extends BaseActivity implements
 		
 		@Override
 		protected void onPostExecute(Void result) {
-			Log.d("ListActivity", "RefreshDataTask.onPostExecute");
+			Log.d("RefreshTask", "RefreshDataTask.onPostExecute");
 			progressBar.setVisibility(ProgressBar.GONE);
+			refreshTask = null;
 		}
 	}
-//TODO:	задължително трябва да може да се cancel-ва
 }

@@ -71,7 +71,8 @@ public class Summarizer {
         return summary;
     }
 
-    private static String getSummaryBySentenceCount(Article article, int requiredSentecesCount)
+    @SuppressWarnings("unused")
+	private static String getSummaryBySentenceCount(Article article, int requiredSentecesCount)
     {
     	TreeSet<Sentence> sentencesByScore = new TreeSet<Sentence>(article.sentences);
 

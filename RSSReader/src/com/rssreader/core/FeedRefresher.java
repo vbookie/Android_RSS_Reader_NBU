@@ -94,7 +94,6 @@ class FeedRefresher {
 		RssReaderDbHelper dbHelper = new RssReaderDbHelper(this.context);
 		readableDb = dbHelper.getReadableDatabase();
 		writableDb = dbHelper.getWritableDatabase();
-		// TODO: remove log msg
 		Log.d("Database", "Database initialized.");
 	}
 	

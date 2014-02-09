@@ -57,5 +57,6 @@ public class SettingsFeedListAdapter extends ArrayAdapter<String> {
 		editor.remove(feedsPreferenceKey);
 		editor.putStringSet(feedsPreferenceKey, set);
 		editor.commit();
+		// TODO: delete feeds from DB
 	}
 }

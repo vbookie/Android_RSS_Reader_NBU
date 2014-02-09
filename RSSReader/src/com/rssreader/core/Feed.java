@@ -1,7 +1,7 @@
 package com.rssreader.core;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 
 /**
  * @author Viktor Bukurov
@@ -14,7 +14,7 @@ public class Feed {
 	private String link;
 	private String description;
 	private Date lastUpdatedDate;
-	private ArrayList<FeedItem> feedItems; // TODO: change it to linked list
+	private LinkedList<FeedItem> feedItems;
 
 	/* CONSTRUCTORS */
 	/**
@@ -28,7 +28,7 @@ public class Feed {
 		this.link = null;
 		this.description = null;
 		this.setLastUpdatedDate(new Date());
-		this.feedItems = new ArrayList<FeedItem>();
+		this.feedItems = new LinkedList<FeedItem>();
 	}
 
 	/* GETTERS AND SETTERS */
@@ -79,7 +79,7 @@ public class Feed {
 		this.feedItems.add(item);
 	}
 	
-	public ArrayList<FeedItem> getFeedItems() {
+	public LinkedList<FeedItem> getFeedItems() {
 		return this.feedItems;
 	}
 }
