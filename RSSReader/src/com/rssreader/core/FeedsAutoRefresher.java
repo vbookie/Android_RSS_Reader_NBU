@@ -10,6 +10,13 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
+/**
+ * Class used to set and trigger refresh of the feeds.
+ * 
+ * @author Viktor Bukurov
+ * @version 1.0
+ * @since 2014-02-10
+ */
 public class FeedsAutoRefresher extends WakefulBroadcastReceiver {
 
 	@Override
@@ -17,6 +24,11 @@ public class FeedsAutoRefresher extends WakefulBroadcastReceiver {
 		context.startService(intent);
 	}
 
+	/**
+	 * Schedules the autorefresh of feeds.
+	 * 
+	 * @param context the application context.
+	 */
 	public static void SetAlarm(Context context)
     {
         Intent intent = new Intent(context, FeedsAutoRefresher.class);
@@ -32,6 +44,11 @@ public class FeedsAutoRefresher extends WakefulBroadcastReceiver {
         			pendingIntent); 
     }
 
+    /**
+     * Cancels any schedules of autorefreshing the feeds.
+     * 
+     * @param context the application context.
+     */
     public static void CancelAlarm(Context context)
     {
         Intent intent = new Intent(context, FeedsAutoRefresher.class);
@@ -40,6 +57,12 @@ public class FeedsAutoRefresher extends WakefulBroadcastReceiver {
         alarmManager.cancel(pendingIntent);
     }
     
+    /**
+     * Gets the refresh time interval specified in the preferences.
+     * 
+     * @param context the application context.
+     * @return the auto-refresh time interval.
+     */
     private static long getRefreshTimeRate(Context context) {
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
 		String refreshTimePrefKey = context.getString(R.string.pref_refresh_rate_key);

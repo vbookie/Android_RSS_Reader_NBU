@@ -8,12 +8,26 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+/**
+ * Used to refresh feeds in the background.
+ * 
+ * @author Viktor Bukurov
+ * @version 1.0
+ * @since 2014-02-10
+ */
 public class FeedsService extends IntentService {	
 	private static boolean inProgress = false;
+	
+	/**
+	 * @return whether a refresh is in progress.
+	 */
 	public static boolean isInProgress() {
 		return inProgress;
 	}
 	
+	/**
+	 * Creates an instance of FeedsService class.
+	 */
 	public FeedsService() {
 		super("FeedsService");
 	}
@@ -44,6 +58,9 @@ public class FeedsService extends IntentService {
 		Log.d("FeedsService", "Service DESTROYED");
 	}
 	
+	/**
+	 * @return whether there is an Internet connection or not.
+	 */
 	public boolean hasInternetConnection() {
 		ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo network = cm.getActiveNetworkInfo();

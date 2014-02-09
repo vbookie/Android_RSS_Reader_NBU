@@ -21,6 +21,13 @@ import com.rssreader.db.RssReaderDbHelper;
 import com.rssreader.db.RssReaderContract.FeedItemsTable;
 import com.rssreader.db.RssReaderContract.FeedsTable;
 
+/**
+ * Class used by the Feeds Service to get, parse and store all feeds.
+ * 
+ * @author Viktor Bukurov
+ * @version 1.0
+ * @since 2014-02-10
+ */
 class FeedRefresher {
 	private SharedPreferences sharedPrefs;
 	private SQLiteDatabase writableDb;
@@ -35,11 +42,21 @@ class FeedRefresher {
 		return this.readableDb;
 	}
 	
+	/**
+	 * Creates a new instance of FeedRefresher class.
+	 * 
+	 * @param context the application context
+	 */
 	FeedRefresher(Context context) {
 		this.context = context;
 		this.sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
 	}
 	
+	/**
+	 * Gets, parses and stores all feeds listed in the preferences.
+	 * 
+	 * @return the number of feeds parsed.
+	 */
 	public int refreshFeeds() {
 		String urlsPrefKey = this.context.getString(R.string.pref_feeds_key);
 		if (!sharedPrefs.contains(urlsPrefKey)) {
@@ -82,6 +99,9 @@ class FeedRefresher {
 		return result;
 	}
 
+	/**
+	 * @return the summary percent as specified in the preferences or it's default value. 
+	 */
 	private int getSummaryPercentFromPreference() {
 		String summaryPrefKey = context.getString(R.string.pref_summary_perc_key);
 		String defaultSummaryPercent = context.getString(R.string.pref_summary_perc_interval_default);
@@ -90,6 +110,9 @@ class FeedRefresher {
 		return summaryPercent;
 	}
 	
+	/**
+	 * Initializes a connection to the database.
+	 */
 	private void initDatabase() {	
 		RssReaderDbHelper dbHelper = new RssReaderDbHelper(this.context);
 		readableDb = dbHelper.getReadableDatabase();
@@ -100,6 +123,12 @@ class FeedRefresher {
 	private final String[] feedColumns = new String[] {
 		FeedsTable._ID
 	};
+	/**
+	 * Stores the feed data in the database.
+	 * 
+	 * @param feed the feed to store.
+	 * @param url the URL of the feed (from the preferences)
+	 */
 	private void updateDatabase(Feed feed, String url) {
 		Log.d("FeedsService", "Now updating database for " + url);
 		SQLiteCursor cursor = (SQLiteCursor) getReadableDb().query(
@@ -127,6 +156,13 @@ class FeedRefresher {
 		Log.d("FeedsService", "Database updated for " + url);
 	}
 
+	/**
+	 * Updates a single feed entry.
+	 * 
+	 * @param feed the feed to store.
+	 * @param cursor the cursor pointing to the existing feed entry.
+	 * @return the row of the feed entry.
+	 */
 	private long updateFeedEntry(Feed feed, SQLiteCursor cursor) {
 		int idColumnIndex = cursor.getColumnIndexOrThrow(FeedsTable._ID);
 		long feedRowId = cursor.getLong(idColumnIndex);
@@ -146,6 +182,13 @@ class FeedRefresher {
 		return feedRowId;
 	}
 	
+	/**
+	 * Inserts a new feed entrt into the Database.
+	 * 
+	 * @param feed the feed to store.
+	 * @param url the URL of the feed (from the preferences)
+	 * @return thw row of the feed entry.
+	 */
 	private long insertNewFeedEntry(Feed feed, String url) {
 		ContentValues values = new ContentValues();
 		values.put(FeedsTable.COLUMN_NAME_FEED_URL, url);
@@ -157,6 +200,12 @@ class FeedRefresher {
 		return feedRowId;
 	}
 	
+	/**
+	 * Inserts all feed items from the specified feed into the Database.
+	 * 
+	 * @param feed the feed to store.
+	 * @param feedRowId the row id of the feed entry.
+	 */
 	private void insertFeedItems(Feed feed, long feedRowId) {
 		for (FeedItem feedItem : feed.getFeedItems()) {
 			Log.d("FeedsService", "No inserting feed item: " + feedItem.getLink());

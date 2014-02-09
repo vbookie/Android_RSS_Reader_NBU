@@ -14,10 +14,28 @@ import com.rssreader.utils.Summarizer;
 
 import android.content.Context;
 
+/**
+ * Class used to parse a single feed from a given file.
+ * 
+ * @author Viktor Bukurov
+ * @version 1.0
+ * @since 2014-02-10
+ */
 class FeedParser {
 	private static final int RSS_MAIN_PROPERTIES_DEPTH = 3;
 	private static final int ATOM_MAIN_PROPERTIES_DEPTH = 2;
 
+	/**
+	 * Parsing a single feed from an given file.
+	 * 
+	 * @param file the file the feed is stored to.
+	 * @param context the application context.
+	 * @param summarizationPercent the summarization percent used to generate summaries for the feed items.
+	 * @return an instance of a Feed class.
+	 * @throws XmlPullParserException if error occurs while parsing the feed.
+	 * @throws IOException if error occurs while reading from the file.
+	 * @throws ParseException if error occurs while parsing the feed.
+	 */
 	public static Feed parseFeed(File file, Context context, int summarizationPercent)
 			throws XmlPullParserException, IOException, ParseException{
 		Summarizer summarizer = new Summarizer(summarizationPercent);
@@ -48,6 +66,16 @@ class FeedParser {
         return feed;
 	}
 
+	/**
+	 * Parsing a RSS feed.
+	 * 
+	 * @param parser the XmlPullParser used for parsing.
+	 * @param summarizer the Summarizer used to generate summaries for the feed items.
+	 * @return an instance of a Rss Feed.
+	 * @throws XmlPullParserException if error occurs while parsing the feed.
+	 * @throws IOException if error occurs while reading from the file.
+	 * @throws ParseException if error occurs while parsing the feed.
+	 */
 	private static Feed parseRssFeed(XmlPullParser parser, Summarizer summarizer) throws XmlPullParserException, IOException, ParseException {
 		Feed feed = new Feed(FeedType.RSS);
 		FeedItem currentFeedItem = null;
@@ -140,6 +168,16 @@ class FeedParser {
 		return feed;
 	}
 
+	/**
+	 * Parsing an Atom feed.
+	 * 
+	 * @param parser the XmlPullParser used for parsing.
+	 * @param summarizer the Summarizer used to generate summaries for the feed items.
+	 * @return an instance of a Atom Feed.
+	 * @throws XmlPullParserException if error occurs while parsing the feed.
+	 * @throws IOException if error occurs while reading from the file.
+	 * @throws ParseException if error occurs while parsing the feed.
+	 */
 	private static Feed parseAtomFeed(XmlPullParser parser, Summarizer summarizer) throws XmlPullParserException, IOException, ParseException {
 		Feed feed = new Feed(FeedType.Atom);
 		int eventType = parser.getEventType(); 
@@ -226,6 +264,13 @@ class FeedParser {
 		return feed;
 	}
 	
+	/**
+	 * Parsing a date using the specified format for RSS feeds.
+	 * 
+	 * @param dateString the date as a string.
+	 * @return the parsed date
+	 * @throws ParseException if the string is of incorrect format.
+	 */
 	private static Date parseRssDate(String dateString) throws ParseException  {
 		SimpleDateFormat dateFormater = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
 		try {
@@ -236,6 +281,13 @@ class FeedParser {
 		}
 	}
 	
+	/**
+	 * Parsing a date using the specified format for Atom feeds.
+	 * 
+	 * @param dateString the date as a string.
+	 * @return the parsed date
+	 * @throws ParseException if the string is of incorrect format.
+	 */
 	private static Date parseAtomDate(String dateString) throws ParseException {
         SimpleDateFormat dateFormater = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssz", Locale.US);
         
