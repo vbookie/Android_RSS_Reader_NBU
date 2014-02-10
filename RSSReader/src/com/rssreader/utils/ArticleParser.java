@@ -1,14 +1,32 @@
 package com.rssreader.utils;
 
+/**
+ * A class used to parse text to an Article.
+ * 
+ * @author Viktor Bukurov
+ * @version 1.0
+ * @since 2014-02-10
+ */
 class ArticleParser {
-	Dictionary dictionary;
-	Stemmer stemmer;
+	private Dictionary dictionary;
+	private Stemmer stemmer;
 	
+	/**
+	 * Creates a new instance of ArticleParser class with the specified Dictionary.
+	 * 
+	 * @param dictionary the dictionary to use while parsing.
+	 */
 	ArticleParser(Dictionary dictionary) {
 		this.dictionary = dictionary;
 		this.stemmer = new Stemmer(dictionary);
 	}
 	
+    /**
+     * Parses a text to an Article.
+     * 
+     * @param text the text of the article to parse.
+     * @return An instance of an Article class.
+     */
     Article parseText(String text)
     {
     	Article article = new Article();
@@ -43,6 +61,12 @@ class ArticleParser {
         return article;
     }
 
+    /**
+     * Finds the stem of the given word and checks if it is an important one.
+     * 
+     * @param article the article being parsed.
+     * @param word the word to check.
+     */
     private void countWordByStem(Article article, Word word)
     {
         Word stemmedWord = this.stemmer.stemWord(word.value);
@@ -67,6 +91,12 @@ class ArticleParser {
         	article.addImportantWord(stemmedWord);
     }
     
+    /**
+     * Checks if a given word is important.
+     * 
+     * @param word the word to check.
+     * @return true if important, false otherwise.
+     */
     private boolean isImportantWord(Word word) {
     	if (this.dictionary.redundantWords.contains(word))
     		return false;
@@ -74,6 +104,12 @@ class ArticleParser {
     		return true;
     }
 
+    /**
+     * Checks if a given word is the last in a sentence.
+     * 
+     * @param word the word to check for.
+     * @return true if is the end of a sentence, false otherwise.
+     */
     private boolean isLastWordOfSentence(String word)
     {
         if (word.contains("\r") || word.contains("\n"))
@@ -88,6 +124,12 @@ class ArticleParser {
         return shouldBreak;
     }
 
+	/**
+	 * Checks if a given word end with a linebreaker.
+	 * 
+	 * @param word the word to check for.
+	 * @return true if the word ends with a linebreaker, false otherwise.
+	 */
 	private boolean endsWithLinebreaker(String word) {
 		int lastCharIndex = word.length() - 1;
     	String lastChar = "" +  word.charAt(lastCharIndex);
@@ -99,6 +141,12 @@ class ArticleParser {
 		return false;
 	}
 
+	/**
+	 * Checks of a given word starts with non-linebreaker.
+	 * 
+	 * @param word the word to check for.
+	 * @return true if the word starts with a non-linebreaker, false otherwise.
+	 */
 	private boolean startsWithNonLinebreaker(String word) {
 		String firstChar = "" +  word.charAt(0);
         for (String startChar : this.dictionary.nonSentanceBreakers) {

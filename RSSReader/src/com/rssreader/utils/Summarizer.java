@@ -5,6 +5,13 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.util.TreeSet;
 import android.util.Log;
 
+/**
+ * A class used to generate summaries for articles.
+ * 
+ * @author Viktor Bukurov
+ * @version 1.0
+ * @since 2014-02-10
+ */
 public class Summarizer {
 	private static final int MIN_PERCENT = 20;
 	private static final int MAX_PERCENT = 100;
@@ -13,10 +20,20 @@ public class Summarizer {
 	private Dictionary dictionary;
 	private ArticleParser parser;
 	
-	boolean isSet() {
+	/**
+	 * Checks whether the dictionary is actually loaded.
+	 * 
+	 * @return true if loaded, false otherwise.
+	 */
+	boolean isDictionaryAvailable() {
 		return this.dictionary != null;
 	}
 	
+	/**
+	 * Creates a new instance of Summarizer class.
+	 * 
+	 * @param summarizationPercent what percent of the whole text the summary should be.
+	 */
 	public Summarizer(int summarizationPercent) {
 		if(summarizationPercent > MAX_PERCENT)
 			summarizationPercent = MAX_PERCENT;
@@ -36,6 +53,12 @@ public class Summarizer {
 		}
 	}
 	
+	/**
+	 * Generate summary from a given article text.
+	 * 
+	 * @param text the article text.
+	 * @return the summary.
+	 */
 	public String summarize(String text) {
 		if (text == null)
 			return null;
@@ -51,6 +74,12 @@ public class Summarizer {
 		return summary;
 	}
 	
+	/**
+	 * Generates summary for an article by percent.
+	 * 
+	 * @param article the article.
+	 * @return the summary.
+	 */
 	private String getSummaryByPercent(Article article)
     {
 		TreeSet<Sentence> sentencesByScore = new TreeSet<Sentence>(article.sentences);
@@ -92,6 +121,12 @@ public class Summarizer {
         return summary;
     }
     
+    /**
+     * Extracts the sentences marked as selected from the article 
+     * and puts them together for the summary.
+     * @param article the article the sentences belong to.
+     * @return the summary.
+     */
     private static String extractSummary(Article article) {
     	StringBuilder sb = new StringBuilder();
     	for (Sentence sentence : article.sentences) {

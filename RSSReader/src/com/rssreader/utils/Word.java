@@ -1,13 +1,38 @@
 package com.rssreader.utils;
 
+/**
+ * Represents data for a single word.
+ * 
+ * @author Viktor Bukurov
+ * @version 1.0
+ * @since 2014-02-10
+ */
 class Word implements Comparable<Word> {
+	/**
+	 * The whole word.
+	 */
 	public String value;
+	/**
+	 * The stem of the word.
+	 */
 	public String stem;
+	/**
+	 * The number of times the word is contained in an Article.
+	 */
 	public double termFrequency;
 	
+    /**
+     * Creates a new instance of Word class.
+     */
     Word() {
     	this(null);
     }
+    
+    /**
+     * Creates a new instance of Word class with the specified value.
+     * 
+     * @param word the whole word.
+     */
     Word(String word) {
     	this.value = word;
     	this.stem = null;

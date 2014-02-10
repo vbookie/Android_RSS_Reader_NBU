@@ -6,6 +6,13 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * Helper class to work with SQLite Database.
+ * 
+ * @author Viktor Bukurov
+ * @version 1.0
+ * @since 2014-02-10
+ */
 public class RssReaderDbHelper extends SQLiteOpenHelper {
 	// If you change the database schema, you must increment the database version.
     public static final int DATABASE_VERSION = 1;
@@ -16,6 +23,9 @@ public class RssReaderDbHelper extends SQLiteOpenHelper {
     private static final String COMMA_SEP = ",";
     private static final String UNIQUE = " UNIQUE";
     
+    /**
+     * SQLite query for creating Feeds table.
+     */
     private static final String SQL_CREATE_TABLE_FEEDS =
         "CREATE TABLE " + FeedsTable.TABLE_NAME + " (" +
 		FeedsTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -26,6 +36,9 @@ public class RssReaderDbHelper extends SQLiteOpenHelper {
         FeedsTable.COLUMN_NAME_LAST_UPDATED + TEXT_TYPE + 
         " )";
     
+    /**
+     * SQLite query for creating FeedItems table.
+     */
     private static final String SQL_CREATE_TABLE_FEED_ITEMS =
             "CREATE TABLE " + FeedItemsTable.TABLE_NAME + " (" +
     		FeedItemsTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -41,11 +54,23 @@ public class RssReaderDbHelper extends SQLiteOpenHelper {
             "REFERENCES " + FeedsTable.TABLE_NAME + "(" + FeedsTable._ID + ")" +
             " )";
     
+    /**
+     * SQLite query for deletion of Feeds table.
+     */
     private static final String SQL_DROP_TABLE_FEEDS =
         "DROP TABLE IF EXISTS " + FeedsTable.TABLE_NAME;
+    
+    /**
+     * SQLite query for deletion of FeedItems table.
+     */
     private static final String SQL_DROP_TABLE_FEED_ITEMS =
         "DROP TABLE IF EXISTS " + FeedItemsTable.TABLE_NAME;
     
+    /**
+     * Creates a new instance of RssHelperDbHelper class.
+     * 
+     * @param context the application context.
+     */
     public RssReaderDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }

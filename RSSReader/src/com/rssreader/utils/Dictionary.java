@@ -65,7 +65,9 @@ class Dictionary {
 							loadSingleRules(parser, dictionaryTag, DictionaryTag.WORD);
 						dictionary.redundantWords = new LinkedList<Word>();
 						for (String word : words) {
-							dictionary.redundantWords.add(new Word(word));
+							Word newWord = new Word(word);
+							newWord.stem = word;
+							dictionary.redundantWords.add(newWord);
 						}
 						break;
 					case GRADER_TF:
