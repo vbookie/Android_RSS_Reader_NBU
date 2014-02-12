@@ -6,7 +6,6 @@ import java.util.Arrays;
 
 import com.rssreader.db.RssReaderContract.FeedItemsTable;
 import com.rssreader.db.RssReaderDbHelper;
-import com.rssreader.db.RssReaderContract.FeedsTable;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;

@@ -94,7 +94,7 @@ public class FeedItemListFragment extends ListFragment implements LoaderCallback
 				0);
         setListAdapter(mAdapter);
 		
-		getLoaderManager().initLoader(0, null, this);
+		getLoaderManager().initLoader(1, null, this);
 	}
 	
 	@Override

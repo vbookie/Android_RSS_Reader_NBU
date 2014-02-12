@@ -3,18 +3,24 @@
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	android:orientation="vertical"
-	android:paddingLeft="0.7mm" >
-	<TextView android:text="HEADLINE"
+	android:paddingLeft="0.7mm"
+	android:layout_marginBottom="10dp">
+
+	<TextView
 	    android:id="@+id/itemlist_row_headline"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:textSize="18sp" />
-	<TextView android:text="DATE"
+	    android:layout_marginTop="2dip"
+	    android:paddingBottom="5dp"
+	    android:paddingTop="5dp"
+	    android:textSize="20sp" />
+
+	<TextView 
 	    android:textSize="12sp"
 	    android:id="@+id/itemlist_row_date"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content" />
-	<TextView android:text="SUMMARY"
+	<TextView 
 	    android:textSize="16sp"
 	    android:id="@+id/itemlist_row_summary"
 	    android:layout_width="wrap_content"

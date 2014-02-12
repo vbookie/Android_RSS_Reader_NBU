@@ -1,9 +1,8 @@
 package com.rssreader;
 
+import com.rssreader.core.FeedsAutoRefresher;
 import com.rssreader.core.FeedsService;
 
-import android.app.Fragment;
-import android.content.AsyncTaskLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
@@ -61,10 +60,10 @@ public class FeedItemListActivity extends BaseActivity implements
 
 		// Sets the default values for the preferences for first time
 		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+		FeedsAutoRefresher.SetAlarm(getApplicationContext());
 		
 		this.progressBar = (ProgressBar) findViewById(R.id.progressBar);
-		
-		
+
 //		if (!FeedsService.isInProgress()) {
 //			forceRefreshTask = true;
 //		} else {
@@ -162,9 +161,11 @@ public class FeedItemListActivity extends BaseActivity implements
 			refreshTask = null;
 			
 			
-			Loader<Cursor> loader = getFragmentManager().findFragmentById(R.id.feeditem_list).getLoaderManager().getLoader(0);
-			if (loader != null && loader.isStarted())
+			Loader<Cursor> loader = getFragmentManager().findFragmentById(R.id.feeditem_list).getLoaderManager().getLoader(1);
+			if (loader != null && loader.isStarted()) {
+				Log.d("RefreshTask" , "Loader force load");
 				loader.forceLoad();
+			}
 		}
 	}
 }
