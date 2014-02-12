@@ -139,6 +139,6 @@ public class FeedItem {
 		String text = this.content;
 		if (text == null || text.trim().isEmpty())
 			text = this.description;
-		summarizer.summarize(text);
+		this.summary = summarizer.summarize(text);
 	}
 }

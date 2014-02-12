@@ -55,6 +55,6 @@ class Sentence implements Comparable<Sentence>{
 
 	@Override
 	public int compareTo(Sentence sentence) {
-		return (int) (this.score - sentence.score);
+		return (int) (sentence.score - this.score);
 	}
 }

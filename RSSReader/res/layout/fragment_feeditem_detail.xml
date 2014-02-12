@@ -1,19 +1,7 @@
-
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/feeditem_detail"
-    style="?android:attr/textAppearanceLarge"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    android:textIsSelectable="true"
-    tools:context=".FeedItemDetailFragment" /> 
-
-<!-- 
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/feeditem_detail"
+  android:id="@+id/layout_feeditem_detail"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent"
   android:orientation="vertical"
@@ -24,7 +12,7 @@
 	  android:layout_weight="1"
 	  android:layout_gravity="top"
 	  android:layout_width="fill_parent" 
-	  android:layout_height="wrap_content">
+	  android:layout_height="0dip">
 	
 		<LinearLayout 
 		  android:orientation="vertical" 
@@ -33,52 +21,30 @@
 		  android:id="@+id/LinearLayout01"
 		  android:layout_gravity="top">
 			<TextView 
-			  android:text="Headline" 
-			  android:id="@+id/item_headline" 
-			  android:layout_width="fill_parent" 
-			  android:layout_height="wrap_content"/>
-			<TextView 
-			  android:text="Dateline" 
-			  android:id="@+id/item_dateline" 
-			  android:layout_width="fill_parent" 
-			  android:layout_height="wrap_content"/>
-			<TextView 
-			  android:text="Content" 
-			  android:id="@+id/item_content" 
+			  android:id="@+id/item_detail_headline" 
 			  android:layout_width="fill_parent" 
 			  android:layout_height="wrap_content"
-			  android:layout_weight="1" android:layout_gravity="bottom"/>
-			<WebView 
-			  
-			  android:id="@+id/item_content_web"
+			  android:textSize="22sp"/>
+			<TextView 
+			  android:id="@+id/item_detail_dateline" 
+			  android:layout_width="fill_parent" 
+			  android:layout_height="wrap_content"/>
+			<WebView  
+			  android:id="@+id/item_detail_content_web"
 			  android:layout_width="fill_parent"
 			  android:layout_height="fill_parent"/>
 		</LinearLayout>
 	</ScrollView>
 	
-	<LinearLayout
-	  
+	<RelativeLayout 	  
 	  android:layout_width="fill_parent"
 	  android:layout_height="wrap_content"
 	  android:orientation="horizontal">
-		<Button 
-		  android:layout_weight="1"
-		  android:text="Browser" 
-		  android:id="@+id/item_button_browser" 
-		  android:layout_width="wrap_content" 
-		  android:layout_height="wrap_content"/> 
-		<Button 
-		  android:layout_weight="1"
-		  android:text="Previous" 
-		  android:id="@+id/item_button_previous" 
-		  android:layout_width="wrap_content" 
-		  android:layout_height="wrap_content"/>
-		<Button 
-		  android:layout_weight="1"
-		  android:text="Next" 
-		  android:id="@+id/item_button_next" 
-		  android:layout_width="wrap_content" 
-		  android:layout_height="wrap_content"/>
-	</LinearLayout>
+		<Button
+		    android:id="@+id/item_detail_button_browser"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/button_browser"
+		    android:layout_centerInParent="true" />
+	</RelativeLayout >
 </LinearLayout>
--->

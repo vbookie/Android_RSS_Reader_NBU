@@ -31,13 +31,9 @@ public class FeedItemDetailActivity extends BaseActivity {
 		// http://developer.android.com/guide/components/fragments.html
 		//
 		if (savedInstanceState == null) {
-			// Create the detail fragment and add it to the activity
-			// using a fragment transaction.
-			Bundle arguments = new Bundle();
-			arguments.putString(FeedItemDetailFragment.ARG_ITEM_ID, getIntent()
-					.getStringExtra(FeedItemDetailFragment.ARG_ITEM_ID));
+			Bundle itemData = getIntent().getBundleExtra(FeedItemDetailFragment.ITEM_ARG);
 			FeedItemDetailFragment fragment = new FeedItemDetailFragment();
-			fragment.setArguments(arguments);
+			fragment.setArguments(itemData);
 			getFragmentManager().beginTransaction()
 					.add(R.id.feeditem_detail_container, fragment).commit();
 		}

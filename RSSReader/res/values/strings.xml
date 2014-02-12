@@ -30,4 +30,6 @@
     <string name="settings_feed_alert_duplicate">The specified URL already exists.</string>
     <string name="settings_no_feeds">Currently there are no feeds. You can add new feeds from the menu.</string>
     <string name="settings_single_feed_empty_url">http://example.com/feed</string>
+    <string name="button_back">Go Back</string>
+    <string name="button_browser">View in Browser</string>
 </resources>

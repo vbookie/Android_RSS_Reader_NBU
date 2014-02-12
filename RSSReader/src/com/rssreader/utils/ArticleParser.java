@@ -56,6 +56,9 @@ class ArticleParser {
                 article.addSentence(currentSentence);
             }
         }
+        if (currentSentence.originalSentence == null) {
+        	currentSentence.originalSentence = originalSentence.toString();
+        }
         
         article.sortImportantWords();
         return article;

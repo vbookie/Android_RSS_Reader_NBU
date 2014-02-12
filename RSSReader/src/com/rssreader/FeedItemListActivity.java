@@ -2,7 +2,11 @@ package com.rssreader;
 
 import com.rssreader.core.FeedsService;
 
+import android.app.Fragment;
+import android.content.AsyncTaskLoader;
 import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -35,7 +39,7 @@ public class FeedItemListActivity extends BaseActivity implements
 	 * device.
 	 */
 	private boolean mTwoPane;
-	private boolean forceRefreshTask;
+	private boolean forceRefreshTask = false;
 	private ProgressBar progressBar;
 	private RefreshDataTask refreshTask = null;
 	
@@ -46,10 +50,6 @@ public class FeedItemListActivity extends BaseActivity implements
 		setContentView(R.layout.activity_feeditem_list);
 
 		if (findViewById(R.id.feeditem_detail_container) != null) {
-			// The detail container view will be present only in the
-			// large-screen layouts (res/values-large and
-			// res/values-sw600dp). If this view is present, then the
-			// activity should be in two-pane mode.
 			mTwoPane = true;
 
 			// In two-pane mode, list items should be given the
@@ -64,11 +64,13 @@ public class FeedItemListActivity extends BaseActivity implements
 		
 		this.progressBar = (ProgressBar) findViewById(R.id.progressBar);
 		
-		if (!FeedsService.isInProgress()) {
-			forceRefreshTask = true;
-		} else {
-			forceRefreshTask = false;
-		}
+		
+//		if (!FeedsService.isInProgress()) {
+//			forceRefreshTask = true;
+//		} else {
+//			forceRefreshTask = false;
+//		}
+		
 	}
 
 	@Override
@@ -84,24 +86,16 @@ public class FeedItemListActivity extends BaseActivity implements
 	 * that the item with the given ID was selected.
 	 */
 	@Override
-	public void onItemSelected(String id) {
+	public void onItemSelected(Bundle itemData) {
 		if (mTwoPane) {
-			// In two-pane mode, show the detail view in this activity by
-			// adding or replacing the detail fragment using a
-			// fragment transaction.
-			Bundle arguments = new Bundle();
-			arguments.putString(FeedItemDetailFragment.ARG_ITEM_ID, id);
 			FeedItemDetailFragment fragment = new FeedItemDetailFragment();
-			fragment.setArguments(arguments);
+			fragment.setArguments(itemData);
 			getFragmentManager().beginTransaction()
 					.replace(R.id.feeditem_detail_container, fragment).commit();
-
 		} else {
-			// In single-pane mode, simply start the detail activity
-			// for the selected item ID.
-			Intent detailIntent = new Intent(this, FeedItemDetailActivity.class);
-			detailIntent.putExtra(FeedItemDetailFragment.ARG_ITEM_ID, id);
-			startActivity(detailIntent);
+			Intent intent = new Intent(this, FeedItemDetailActivity.class);
+			intent.putExtra(FeedItemDetailFragment.ITEM_ARG, itemData);
+			startActivity(intent);
 		}
 	}
 	
@@ -166,6 +160,11 @@ public class FeedItemListActivity extends BaseActivity implements
 			Log.d("RefreshTask", "RefreshDataTask.onPostExecute");
 			progressBar.setVisibility(ProgressBar.GONE);
 			refreshTask = null;
+			
+			
+			Loader<Cursor> loader = getFragmentManager().findFragmentById(R.id.feeditem_list).getLoaderManager().getLoader(0);
+			if (loader != null && loader.isStarted())
+				loader.forceLoad();
 		}
 	}
 }

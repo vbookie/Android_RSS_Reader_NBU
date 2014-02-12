@@ -2,12 +2,18 @@ package com.rssreader;
 
 import android.app.Activity;
 import android.app.ListFragment;
+import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteCursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
-import com.rssreader.dummy.DummyContent;
+import com.rssreader.db.RssReaderContract.FeedItemsTable;
 
 /**
  * A list fragment representing a list of FeedItems. This fragment also supports
@@ -18,8 +24,10 @@ import com.rssreader.dummy.DummyContent;
  * Activities containing this fragment MUST implement the {@link Callbacks}
  * interface.
  */
-public class FeedItemListFragment extends ListFragment {
+public class FeedItemListFragment extends ListFragment implements LoaderCallbacks<Cursor>{
 
+	private SimpleCursorAdapter mAdapter;
+	
 	/**
 	 * The serialization (saved instance state) Bundle key representing the
 	 * activated item position. Only used on tablets.
@@ -46,7 +54,7 @@ public class FeedItemListFragment extends ListFragment {
 		/**
 		 * Callback for when an item has been selected.
 		 */
-		public void onItemSelected(String id);
+		public void onItemSelected(Bundle itemData);
 	}
 
 	/**
@@ -55,7 +63,7 @@ public class FeedItemListFragment extends ListFragment {
 	 */
 	private static Callbacks sDummyCallbacks = new Callbacks() {
 		@Override
-		public void onItemSelected(String id) {
+		public void onItemSelected(Bundle itemData) {
 		}
 	};
 
@@ -67,15 +75,28 @@ public class FeedItemListFragment extends ListFragment {
 	}
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
-		// TODO: replace with a real list adapter.
-		setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-				android.R.layout.simple_list_item_activated_1, // Така се сетва layout-a на реда
-				android.R.id.text1, DummyContent.ITEMS));
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		
+		mAdapter = new SimpleCursorAdapter(getActivity(),
+                R.layout.fragment_feeditem_list_row,
+                null,
+                new String[] {
+					FeedItemsTable.COLUMN_NAME_TITLE,
+					FeedItemsTable.COLUMN_NAME_SUMMARY,
+					FeedItemsTable.COLUMN_NAME_PUBLICATION_DATE
+				},
+                new int[] {
+					R.id.itemlist_row_headline,
+					R.id.itemlist_row_summary,
+					R.id.itemlist_row_date
+				},
+				0);
+        setListAdapter(mAdapter);
+		
+		getLoaderManager().initLoader(0, null, this);
 	}
-
+	
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
@@ -110,13 +131,25 @@ public class FeedItemListFragment extends ListFragment {
 	}
 
 	@Override
-	public void onListItemClick(ListView listView, View view, int position,
-			long id) {
+	public void onListItemClick(ListView listView, View view, int position, long id) {
 		super.onListItemClick(listView, view, position, id);
 
-		// Notify the active callbacks interface (the activity, if the
-		// fragment is attached to one) that an item has been selected.
-		mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+		SQLiteCursor cursor = (SQLiteCursor) getListView().getItemAtPosition(position);
+		String title = cursor.getString(1);
+		String date = cursor.getString(3);
+		String description = cursor.getString(4);
+		String content = cursor.getString(5);
+		String link = cursor.getString(6);
+
+		Bundle itemData = new Bundle(5);
+		itemData.putLong(FeedItemDetailFragment.ARG_ITEM_ID, id);
+		itemData.putString(FeedItemDetailFragment.ARG_ITEM_TITLE, title);
+		itemData.putString(FeedItemDetailFragment.ARG_ITEM_DATE, date);
+		itemData.putString(FeedItemDetailFragment.ARG_ITEM_DESCRIPTION, description);
+		itemData.putString(FeedItemDetailFragment.ARG_ITEM_CONTENT, content);
+		itemData.putString(FeedItemDetailFragment.ARG_ITEM_LINK, link);
+
+		mCallbacks.onItemSelected(itemData);
 	}
 
 	@Override
@@ -148,5 +181,21 @@ public class FeedItemListFragment extends ListFragment {
 		}
 
 		mActivatedPosition = position;
+	}
+
+	@Override
+	public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
+		FeedItemsLoader loader = new FeedItemsLoader(getActivity());
+		return loader;
+	}
+
+	@Override
+	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+		this.mAdapter.swapCursor(data);		
+	}
+
+	@Override
+	public void onLoaderReset(Loader<Cursor> arg0) {
+		this.mAdapter.swapCursor(null);
 	}
 }

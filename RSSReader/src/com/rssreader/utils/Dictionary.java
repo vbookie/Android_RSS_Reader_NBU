@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -116,16 +117,23 @@ class Dictionary {
     {
     	HashMap<String, String> rules = new HashMap<String, String>();
     	int eventType = parser.next();
-    	while(eventType != XmlPullParser.END_TAG
-    			&& DictionaryTag.getValueOf(parser.getName()) != parentTag) {
-    		if (eventType == XmlPullParser.START_TAG
-    				&& DictionaryTag.getValueOf(parser.getName()) != DictionaryTag.RULE) {
-    			String rule = parser.getText();
-    			String[] pair = rule.split("|");
-    			if (!rules.containsKey(pair[0]))
-    				rules.put(pair[0], pair[1]);
+    	DictionaryTag tag = DictionaryTag.getValueOf(parser.getName());
+    	while(tag != parentTag) {
+    		if (eventType == XmlPullParser.START_TAG && tag == DictionaryTag.RULE) {
+    			if (parser.next() == XmlPullParser.TEXT) {
+	    			String rule = parser.getText();
+	    			int separatorIndex = rule.indexOf('|');
+	    			String[] pair = new String[2];
+	    			pair[0] = rule.substring(0, separatorIndex);
+	    			pair[1] = "";
+	    			if (++separatorIndex < rule.length())
+	    				rule.substring(separatorIndex);
+	    			if (!rules.containsKey(pair[0]))
+	    				rules.put(pair[0], pair[1]);
+    			}
     		}
     		eventType = parser.next();
+    		tag = DictionaryTag.getValueOf(parser.getName());
     	}
         return rules;
     }
@@ -134,15 +142,17 @@ class Dictionary {
     {
     	LinkedList<String> rules = new LinkedList<String>();
     	int eventType = parser.next();
-    	while(eventType != XmlPullParser.END_TAG
-    			&& DictionaryTag.getValueOf(parser.getName()) != parentTag) {
-    		if (eventType == XmlPullParser.START_TAG
-    				&& DictionaryTag.getValueOf(parser.getName()) != childTag) {
-    			String rule = parser.getText();
-    			if (!rules.contains(rule))
-    				rules.add(rule);
+    	DictionaryTag tag = DictionaryTag.getValueOf(parser.getName());
+    	while(tag != parentTag) {
+    		if (eventType == XmlPullParser.START_TAG && tag == childTag) {
+    			if (parser.next() == XmlPullParser.TEXT) {
+	    			String rule = parser.getText();
+	    			if (!rules.contains(rule))
+	    				rules.add(rule);
+    			}
     		}
     		eventType = parser.next();
+    		tag = DictionaryTag.getValueOf(parser.getName());
     	}
         return rules;
     }

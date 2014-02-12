@@ -89,9 +89,8 @@ public class RssReaderDbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // This database is only a cache for online data, so its upgrade policy is
         // to simply to discard the data and start over
-        db.execSQL(SQL_DROP_TABLE_FEEDS);
-        db.execSQL(SQL_DROP_TABLE_FEED_ITEMS);
-        
+    	db.execSQL(SQL_DROP_TABLE_FEED_ITEMS);
+    	db.execSQL(SQL_DROP_TABLE_FEEDS); 
         onCreate(db);
     }
     

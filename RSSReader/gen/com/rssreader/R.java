@@ -40,21 +40,26 @@ public final class R {
     }
     public static final class id {
         public static final int LinearLayout01=0x7f0a0009;
-        public static final int action_new_feed_url=0x7f0a0014;
-        public static final int action_refresh=0x7f0a0011;
-        public static final int action_settings=0x7f0a0010;
+        public static final int action_new_feed_url=0x7f0a0019;
+        public static final int action_refresh=0x7f0a0016;
+        public static final int action_settings=0x7f0a0015;
         public static final int activity_settings_feed_list=0x7f0a0003;
         public static final int activity_settings_feed_list_row=0x7f0a0004;
-        public static final int feeditem_detail=0x7f0a000c;
         public static final int feeditem_detail_container=0x7f0a0000;
         public static final int feeditem_list=0x7f0a0001;
-        public static final int itemlist_row_date=0x7f0a000f;
-        public static final int itemlist_row_headline=0x7f0a000d;
-        public static final int itemlist_row_summary=0x7f0a000e;
+        public static final int item_detail_button_browser=0x7f0a0011;
+        public static final int item_detail_content_web=0x7f0a0010;
+        public static final int item_detail_dateline=0x7f0a000f;
+        public static final int item_detail_headline=0x7f0a000e;
+        public static final int item_scrollview=0x7f0a000d;
+        public static final int itemlist_row_date=0x7f0a0013;
+        public static final int itemlist_row_headline=0x7f0a0012;
+        public static final int itemlist_row_summary=0x7f0a0014;
+        public static final int layout_feeditem_detail=0x7f0a000c;
         public static final int layout_root=0x7f0a0005;
         public static final int progressBar=0x7f0a0002;
-        public static final int settings_feed_delete_action=0x7f0a0013;
-        public static final int settings_feed_edit_action=0x7f0a0012;
+        public static final int settings_feed_delete_action=0x7f0a0018;
+        public static final int settings_feed_edit_action=0x7f0a0017;
         public static final int settings_single_feed_cancel_button=0x7f0a000a;
         public static final int settings_single_feed_description=0x7f0a0006;
         public static final int settings_single_feed_save_button=0x7f0a000b;
@@ -97,6 +102,8 @@ public final class R {
         public static final int action_refresh=0x7f070008;
         public static final int action_settings=0x7f070007;
         public static final int app_name=0x7f070002;
+        public static final int button_back=0x7f070021;
+        public static final int button_browser=0x7f070022;
         public static final int button_cancel=0x7f07000b;
         public static final int button_ok=0x7f070009;
         public static final int button_save=0x7f07000a;
